@@ -36,7 +36,6 @@
 #import "WXApi.h"
 //以下是微信SDK的依赖库：
 //libsqlite3.dylib
-#import "SVProgressHUD.h"
 
 @implementation MobShareHelper
 
@@ -167,13 +166,11 @@ NSString * const ShareSDKAppId = @"cf4c9292b040";
                 case SSDKResponseStateSuccess:
                 {
                     completion([NSString stringWithFormat:@"%@:%@", snsName, NSLocalizedStringFromTableInBundle(@"ShareSucceed", tbl, bundle, NULL)], nil);
-                    [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"%@:%@", snsName, @"分享成功"]];
                 }break;
                 case SSDKResponseStateFail:
                 {
                     NSString *msg = [NSString stringWithFormat:@"%@:%@", snsName, error.userInfo[@"error_message"]];
                     NSError *err = [NSError errorWithDomain:error.domain code:error.code userInfo:@{NSLocalizedFailureReasonErrorKey:msg}];
-                    [SVProgressHUD showErrorWithStatus:msg];
                     completion(msg, err);
                 }break;
                 default:
